@@ -29,7 +29,7 @@ const app = express();
 app.use(express.json())
 
 //host port
-const PORT = 3000;
+const PORT = 8080;
 
 app.get('/', (req, res) => {
     res.json({title:"This api is working"})

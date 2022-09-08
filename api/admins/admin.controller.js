@@ -1,13 +1,13 @@
-const { create, getAdminById, getAdmins, updateAdmin, getAdminByEmail, notifyAdd, notifyDelete, notifyEdit, notifyGetAll, notifyGetById } = require('./admin.service')
+const { create, getAdminById, getAdmins, updateAdmin, searchAdmins, getAdminByEmail, notifyAdd, notifyDelete, notifyEdit, notifyGetAll, notifyGetById } = require('./admin.service')
 const { genSaltSync, hashSync, compareSync } = require('bcrypt')
 const { sign } = require('jsonwebtoken')
 module.exports = {
     createAdmin: (req, res) => {
-        const body = req.body
+        const body = req.body.value
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
         create(body, (err, results) => {
-            if(err){
+            if (err) {
                 console.log(err)
                 return res.status(500).json({
                     success: false,
@@ -22,41 +22,54 @@ module.exports = {
         });
     },
     getAdmins: (req, res) => {
-        getAdmins((err, results) => {
-            if(err){
-                console.log(err)
-                return;
-            }
-            return res.json({
-                success: true,
-                data: results
+        if (req.body.search) {
+            searchAdmins(req.body.search[0].key, (err, results) => {
+                if (err) {
+                    console.log(err)
+                    return;
+                }
+                return res.json({
+                    success: true,
+                    result: results,
+                    count: results.length
+                })
             })
-        })
+        } else {
+            getAdmins((err, results) => {
+                if (err) {
+                    console.log(err)
+                    return;
+                }
+                return res.json({
+                    success: true,
+                    result: results,
+                    count: results.length
+                })
+            })
+        }
     },
     getAdminById: (req, res) => {
         const id = req.params.id;
         getAdminById(id, (err, results) => {
-            if(err)
-            {
+            if (err) {
                 console.log(err);
                 return;
             }
-            if(!results)
-            {
+            if (!results) {
                 return res.json({
                     success: false,
                     message: 'Record not found'
                 })
             }
-            return res.json({success: true, data: results})
+            return res.json({ success: true, data: results })
         })
     },
     updateAdmin: (req, res) => {
-        const body = req.body;
+        const body = req.body.value;
         const salt = genSaltSync(10);
         body.password = hashSync(body.password, salt);
         updateAdmin(body, (err, results) => {
-            if(err){
+            if (err) {
                 console.log(err)
                 return;
             }
@@ -70,19 +83,17 @@ module.exports = {
         const body = req.body;
         console.log(body)
         getAdminByEmail(body.email, (err, results) => {
-            if(err)
-            {
+            if (err) {
                 console.log(err);
             }
-            if(!results){
+            if (!results) {
                 return res.json({
                     success: false,
                     message: 'Invalid email or password'
                 })
             }
             const result = compareSync(body.password, results.password);
-            if(result)
-            {
+            if (result) {
                 results.password = undefined;
                 const jstoken = sign({ result: results }, 'qwe1234', {
                     expiresIn: '24h'
@@ -92,7 +103,7 @@ module.exports = {
                     message: 'Login successfully',
                     token: jstoken
                 });
-            }else{
+            } else {
                 return res.json({
                     success: false,
                     message: 'Invalid email or password',
@@ -104,7 +115,7 @@ module.exports = {
         const body = req.body;
 
         notifyAdd(body, (err, results) => {
-            if(err){
+            if (err) {
                 console.log(err)
                 return res.status(500).json({
                     success: false,
@@ -121,7 +132,7 @@ module.exports = {
     notifyEdit: (req, res) => {
         const body = req.body;
         notifyEdit(body, (err, results) => {
-            if(err){
+            if (err) {
                 console.log(err)
                 return;
             }
@@ -133,7 +144,7 @@ module.exports = {
     },
     notifyGetAll: (req, res) => {
         notifyGetAll((err, results) => {
-            if(err){
+            if (err) {
                 console.log(err)
                 return;
             }
@@ -146,30 +157,27 @@ module.exports = {
     notifyGetById: (req, res) => {
         const id = req.params.id;
         notifyGetById(id, (err, results) => {
-            if(err)
-            {
+            if (err) {
                 console.log(err);
                 return;
             }
-            if(!results)
-            {
+            if (!results) {
                 return res.json({
                     success: false,
                     message: 'Record not found'
                 })
             }
-            return res.json({success: true, data: results})
+            return res.json({ success: true, data: results })
         })
     },
     notifyDelete: (req, res) => {
         const id = req.params.id;
         notifyDelete(id, (err, results) => {
-            if(err)
-            {
+            if (err) {
                 console.log(err);
                 return;
             }
-            return res.json({success: true, data: results})
+            return res.json({ success: true, data: results })
         })
     },
 }

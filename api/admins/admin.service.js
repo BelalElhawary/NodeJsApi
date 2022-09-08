@@ -38,7 +38,7 @@ module.exports = {
         );
     },
     getAdmins: callBack => {
-        pool.query('select id,name,email,password from registration',
+        pool.query('select id,name,email from registration',
         [], 
         (error, result, fields) => {
             if(error)
@@ -83,6 +83,19 @@ module.exports = {
             }
 
             return callBack(null, results[0])
+        });
+    },
+    searchAdmins: (key, callBack) => {
+        key = `%${key}%`
+        pool.query(`select id,name,email from registration where id like ? or name like ? or email like ?`,
+        [key, key, key], 
+        (error, result, fields) => {
+            if(error)
+            {
+                return callBack(error);
+            }
+
+            return callBack(null, result)
         });
     },
     updateAdmin: (data, callBack) => {

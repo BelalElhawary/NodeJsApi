@@ -29,7 +29,7 @@ app.use(cors({
 app.use(express.json())
 
 //host port
-const PORT = 2556;
+const PORT = 3000;
 
 
 app.get('/api', (req, res) => {

@@ -4,7 +4,7 @@ const pool = createPool({
     port: 3306,
     host: 'sql750.main-hosting.eu',
     user:'u227215459_root',
-    password:'',
+    password:'Bb281655900',
     database:'u227215459_elsa5ra',
     connectionLimit: 10
 })

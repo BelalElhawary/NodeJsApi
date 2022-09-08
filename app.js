@@ -21,9 +21,7 @@ const { checkToken } = require('./auth/token_validation')
 const app = express();
 
 // Origin
-/*app.use(cors({
-    origin: 'http://localhost:3000'
-}))*/
+app.use(cors())
 
 // json converter
 app.use(express.json())

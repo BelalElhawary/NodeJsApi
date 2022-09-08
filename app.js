@@ -31,6 +31,10 @@ app.use(express.json())
 //host port
 const PORT = 3000;
 
+app.get('/', (req, res) => {
+    res.render('index', {title:"This api is working"})
+})
+
 
 app.get('/api', (req, res) => {
     res.json({

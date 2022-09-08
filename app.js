@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose')
+//const mongoose = require('mongoose')
 const AWS = require('aws-sdk')
 const s3 = new AWS.S3();
 

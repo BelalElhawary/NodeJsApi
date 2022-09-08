@@ -3,12 +3,12 @@
 const router = require('express').Router();
 const { checkToken } = require('../auth/token_validation');
 
-//var db = new JsonDB(new Config("myDataBase", true, false, '/'));
+var db = new JsonDB(new Config("myDataBase", true, false, '/'));
 
 const post = async (req, res) => {
     const body = req.body.value
 
-    //await db.push("/calendar", body);
+    await db.push("/calendar", body);
 
     return res.json({
         success: true
@@ -18,7 +18,7 @@ const post = async (req, res) => {
 const get = async (req, res) => {
     try {
         var data = {}
-        //var data = await db.getData("/calendar");
+        var data = await db.getData("/calendar");
         return res.json({
             success: true,
             result: data

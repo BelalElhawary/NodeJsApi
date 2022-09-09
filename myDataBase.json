@@ -1,1 +1,1 @@
-{"calendar":{"test":"alo","json":[{"Subject":"Exam","Id":1,"StartTime":"2022-08-14T22:00:00.000Z","EndTime":"2022-08-15T22:00:00.000Z","IsAllDay":true}]}}
+{"calendar":{"test":"alo","json":[{"Subject":"Exam","Id":1,"StartTime":"2022-08-14T22:00:00.000Z","EndTime":"2022-08-15T22:00:00.000Z","IsAllDay":true},{"Subject":"sadas","Location":"sadasd","StartTime":"2022-09-05T05:00:00.000Z","EndTime":"2022-09-05T05:30:00.000Z","IsAllDay":false,"StartTimezone":null,"EndTimezone":null,"Description":"sadasd","RecurrenceRule":"FREQ=DAILY;INTERVAL=1;","Id":2}]}}

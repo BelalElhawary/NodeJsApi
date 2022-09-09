@@ -47,7 +47,7 @@ module.exports = {
                 return callBack(null, result)
             });
     },
-    sreachStudents: (key, callBack) => {
+    searchStudents: (key, callBack) => {
         key = `%${key}%`
         pool.query('select id,code,available,name,pn,ppn,country from students where id like ? or code like ? or name like ?',
             [key, key, key,],

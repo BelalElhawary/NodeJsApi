@@ -1,4 +1,4 @@
-const { addStudent, getAllStudents, studentDelete, studentUpdate, loginStudent, logoutStudent } = require('./student.service')
+const { addStudent, getAllStudents, studentDelete, studentUpdate, loginStudent, logoutStudent, searchStudents } = require('./student.service')
 
 module.exports = {
     insertStudent: async (req, res) => {
@@ -44,7 +44,6 @@ module.exports = {
     },
     updateStudent: async (req, res) => {
         let body = req.body.value;
-        console.log(body)
         let final = {}
         studentUpdate(body, (err, results) => {
             if (err) {

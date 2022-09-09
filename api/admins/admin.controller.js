@@ -4,22 +4,46 @@ const { sign } = require('jsonwebtoken')
 module.exports = {
     createAdmin: (req, res) => {
         const body = req.body.value
+        let final = {}
         const salt = genSaltSync(10)
         body.password = hashSync(body.password, salt)
         create(body, (err, results) => {
             if (err) {
-                console.log(err)
-                return res.status(500).json({
+                final = {
                     success: false,
                     message: 'Database connection error'
-                });
+                }
+            } else {
+                final = {
+                    success: true,
+                    result: results
+                }
             }
-
-            return res.status(200).json({
-                success: true,
-                data: results
-            })
         });
+        res.json({ actions: final });
+    },
+    deleteAdmin: async (req, res) => {
+        let body = req.body.key;
+        let final = {}
+        deleteAdmin(body, (err, results) => {
+            if (err) {
+                final = {
+                    success: false,
+                    data: err
+                }
+            } else if (!results) {
+                final = {
+                    success: false,
+                    data: 'Record not found'
+                }
+            } else {
+                final = {
+                    success: true,
+                    data: 'Admin deleted successfully'
+                }
+            }
+        })
+        res.json({ actions: final });
     },
     getAdmins: (req, res) => {
         if (req.body.search) {
@@ -61,23 +85,31 @@ module.exports = {
                     message: 'Record not found'
                 })
             }
-            return res.json({ success: true, data: results })
+            return res.json({ success: true, result: results })
         })
     },
     updateAdmin: (req, res) => {
         const body = req.body.value;
-        const salt = genSaltSync(10);
-        body.password = hashSync(body.password, salt);
+        let final = {}
+        if(body.password)
+        {
+            const salt = genSaltSync(10);
+            body.password = hashSync(body.password, salt);
+        }
         updateAdmin(body, (err, results) => {
             if (err) {
-                console.log(err)
-                return;
+                final = {
+                    success: false,
+                    data: err
+                }
+            } else {
+                final = {
+                    success: true,
+                    data: 'Student updated successfully'
+                }
             }
-            return res.json({
-                success: true,
-                message: 'Update successfully'
-            })
         })
+        res.json({ actions: final });
     },
     login: (req, res) => {
         const body = req.body;
@@ -101,6 +133,7 @@ module.exports = {
                 return res.json({
                     success: true,
                     message: 'Login successfully',
+                    name: results.name,
                     token: jstoken
                 });
             } else {

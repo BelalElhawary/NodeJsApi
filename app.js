@@ -1,7 +1,5 @@
 const express = require('express');
 //const mongoose = require('mongoose')
-const AWS = require('aws-sdk')
-const s3 = new AWS.S3();
 
 
 //mongoose.connect('mongodb+srv://Santrafysh:Bb281655900@cluster0.uzh9nyt.mongodb.net/admins')

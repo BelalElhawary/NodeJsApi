@@ -19,7 +19,7 @@ const { checkToken } = require('./auth/token_validation')
 const app = express();
 
 // Origin
-app.use(cors())
+//app.use(cors())
 
 // json converter
 app.use(express.json())

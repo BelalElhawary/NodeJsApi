@@ -29,7 +29,7 @@ app.use(cors())
 app.use(express.json())
 
 //host port
-const PORT = 8080;
+const PORT = process.env.PORT;
 
 app.get('/', (req, res) => {
     res.json({title:"This api is working"})

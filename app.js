@@ -23,9 +23,7 @@ var morgan = require('morgan')
 app.use(morgan('combined'))
 
 // Origin
-app.use(cors({
-    origin: 'https://dashboard.elsa5ra.com' // some legacy browsers (IE11, various SmartTVs) choke on 204
-}))
+app.use(cors())
 
 // json converter
 app.use(express.json())

@@ -1,4 +1,5 @@
 const express = require('express');
+
 //const mongoose = require('mongoose')
 
 
@@ -18,8 +19,11 @@ const { checkToken } = require('./auth/token_validation')
 
 const app = express();
 
+var morgan = require('morgan')
+app.use(morgan('combined'))
+
 // Origin
-//app.use(cors())
+app.use(cors())
 
 // json converter
 app.use(express.json())

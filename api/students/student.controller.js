@@ -1,4 +1,4 @@
-const { addStudent, getAllStudents, studentDelete, studentUpdate, loginStudent, logoutStudent, searchStudents } = require('./student.service')
+const { addStudent, getAllStudents, studentDelete, studentUpdate, loginStudent, logoutStudent, searchStudents, getProfile } = require('./student.service')
 
 module.exports = {
     insertStudent: async (req, res) => {
@@ -105,11 +105,11 @@ module.exports = {
             if(err)
             {
                 console.log(err);
-                return res.json({ success: false, data: err });
+                return res.json({ success: false, message: err });
             }
             return res.json({
                 success: true,
-                data: `this code is now active you can't use it on other devices`
+                message: `this code is now active you can't use it on other devices`
             })
         })
     },
@@ -119,11 +119,23 @@ module.exports = {
             if(err)
             {
                 console.log(err);
-                return res.json({ success: false, data: err });
+                return res.json({ success: false, message: err });
             }
             return res.json({
                 success: true,
-                data: `this code is now avalible`
+                message: `this code is now avalible`
+            })
+        })
+    },
+    getProfile: (req, res) => {
+        getProfile((err, results) => {
+            if (err) {
+                console.log(err)
+                return res.json({ success: false, message: 'server failure' });
+            }
+            return res.json({
+                success: true,
+                result: results
             })
         })
     },

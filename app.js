@@ -1,14 +1,5 @@
 const express = require('express');
 
-//const mongoose = require('mongoose')
-
-
-//mongoose.connect('mongodb+srv://Santrafysh:Bb281655900@cluster0.uzh9nyt.mongodb.net/admins')
-//const db = mongoose.connection
-
-//db.on('error', (error) => console.error(error))
-//db.once('open', () => console.log('Connected to database'))
-
 const studentsRouter = require('./api/students/student.router')
 const lessonsRouter = require('./api/lessons/lessons.router')
 const adminRouter = require('./api/admins/admin.router')
@@ -19,8 +10,8 @@ const { checkToken } = require('./auth/token_validation')
 
 const app = express();
 
-var morgan = require('morgan')
-app.use(morgan('combined'))
+//var morgan = require('morgan')
+//app.use(morgan('combined'))
 
 // Origin
 app.use(cors())
@@ -29,7 +20,7 @@ app.use(cors())
 app.use(express.json())
 
 //host port
-const PORT = process.env.PORT;
+const PORT = 8080;
 
 app.get('/', (req, res) => {
     res.json({title:"This api is working"})

@@ -20,7 +20,7 @@ module.exports = {
                 pool.query(
                     `insert into students(code,available,name,pn,ppn,country) values(?,?,?,?,?,?)`,
                     [
-                        generateCode,
+                        code,
                         0,
                         data.name,
                         data.pn,
@@ -45,6 +45,16 @@ module.exports = {
                     return callBack(error);
                 }
                 return callBack(null, result)
+            });
+    },
+    getProfile: (data, callBack) => {
+        pool.query('select name,pn,ppn,country from students where code = ?',
+            [data.code],
+            (error, result, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, result[0])
             });
     },
     searchStudents: (key, callBack) => {

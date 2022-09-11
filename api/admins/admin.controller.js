@@ -134,6 +134,7 @@ module.exports = {
                     success: true,
                     message: 'Login successfully',
                     name: results.name,
+                    permission: results.permission,
                     token: jstoken
                 });
             } else {

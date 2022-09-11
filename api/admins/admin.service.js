@@ -3,11 +3,12 @@ const pool = require('../../config/database');
 module.exports = {
     create: (data, callBack) => {
         pool.query(
-            `insert into registration(uid, name, email, password) values(UUID(),?,?,?)`,
+            `insert into registration(uid, name, email, password, permission) values(UUID(),?,?,?,?)`,
             [
                 data.name,
                 data.email,
-                data.password
+                data.password,
+                'editor'
             ],
             (error, results, fields) => {
                 if (error) {
@@ -34,7 +35,7 @@ module.exports = {
         );
     },
     getAdmins: callBack => {
-        pool.query('select id,name,email from registration',
+        pool.query('select id,name,email,permission from registration',
             [],
             (error, result, fields) => {
                 if (error) {
@@ -56,7 +57,7 @@ module.exports = {
             });
     },
     getAdminById: (id, callBack) => {
-        pool.query('select name,email from registration where id = ?',
+        pool.query('select name,email,permission from registration where id = ?',
             [id],
             (error, results, fields) => {
                 if (error) {

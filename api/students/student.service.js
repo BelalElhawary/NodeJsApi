@@ -18,7 +18,7 @@ module.exports = {
                     code = generateCode()
                 }
                 pool.query(
-                    `insert into students(code,available,name,pn,ppn,country) values(?,?,?,?,?,?)`,
+                    `insert into students(code,available,name,pn,ppn,country,date,admin) values(?,?,?,?,?,?,?,?)`,
                     [
                         code,
                         0,
@@ -26,6 +26,8 @@ module.exports = {
                         data.pn,
                         data.ppn,
                         data.country,
+                        Date.UTC().toString(),
+                        data.admin
                     ],
                     (error, results, fields) => {
                         if (error) {

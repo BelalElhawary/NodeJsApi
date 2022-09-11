@@ -40,7 +40,7 @@ module.exports = {
         )
     },
     getAllStudents: callBack => {
-        pool.query('select id,code,available,name,pn,ppn,country from students',
+        pool.query('select id,code,available,name,pn,ppn,country,admin,date from students',
             [],
             (error, result, fields) => {
                 if (error) {
@@ -50,7 +50,7 @@ module.exports = {
             });
     },
     getProfile: (data, callBack) => {
-        pool.query('select name,pn,ppn,country from students where code = ?',
+        pool.query('select name,pn,ppn,country,date from students where code = ?',
             [data.code],
             (error, result, fields) => {
                 if (error) {
@@ -61,7 +61,7 @@ module.exports = {
     },
     searchStudents: (key, callBack) => {
         key = `%${key}%`
-        pool.query('select id,code,available,name,pn,ppn,country from students where id like ? or code like ? or name like ?',
+        pool.query('select id,code,available,name,pn,ppn,country,admin from students where id like ? or code like ? or name like ?',
             [key, key, key,],
             (error, result, fields) => {
                 if (error) {

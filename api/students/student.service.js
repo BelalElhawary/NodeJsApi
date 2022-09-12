@@ -26,7 +26,7 @@ module.exports = {
                         data.pn,
                         data.ppn,
                         data.country,
-                        Date.now().toString(),
+                        Date.now(),
                         data.admin
                     ],
                     (error, results, fields) => {

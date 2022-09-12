@@ -8,6 +8,6 @@ router.post('/', checkToken, getAllLessons)
 router.post('/insert', checkToken, insertLesson)
 router.post('/remove', checkToken, removeLesson)
 router.post('/update', checkToken, updateLesson)
-router.get('/', checkToken, getAllLessons)
+router.get('/', getAllLessons)
 
 module.exports = router;

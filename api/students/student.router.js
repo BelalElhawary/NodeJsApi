@@ -12,5 +12,6 @@ router.post('/update', checkToken, updateStudent)
 router.post('/login', loginStudent)
 router.post('/logout', logoutStudent)
 router.post('/profile', getProfile)
+router.get('/', checkToken, getAllStudents)
 
 module.exports = router;

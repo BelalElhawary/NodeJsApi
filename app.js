@@ -1,5 +1,7 @@
 const express = require('express');
 
+const postRouter = require('./api/post/post.router')
+const examRouter = require('./api/exam/exam.router')
 const studentsRouter = require('./api/students/student.router')
 const lessonsRouter = require('./api/lessons/lessons.router')
 const adminRouter = require('./api/admins/admin.router')
@@ -46,5 +48,7 @@ app.use('/api/lessons', lessonsRouter);
 app.use('/api/admins', adminRouter);
 app.use('/api/admins/notify', adminNotificationRouter);
 app.use('/api/calendar', calendarRouter)
+app.use('/api/exam', examRouter);
+app.use('/api/post', postRouter);
 
 app.listen(PORT, () => console.log(`its alive on http://localhost:${PORT}`))
